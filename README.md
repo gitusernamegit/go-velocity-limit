@@ -25,12 +25,13 @@ Copy "build" directory into ~/backend folder
 
 
 Create $GOPATH/src/github.com/koho/takehome/velocitylimit
+
 Copy backend folder content into $GOPATH/src/github.com/koho/takehome/
+
 Make $GOPATH/src/github.com/koho/takehome/ your current folder
 
-Run cli:
 
-go build
+Run cli: go build
 
 It should create velocitylimit executable
 
@@ -44,7 +45,7 @@ or
 From $GOPATH/src/github.com/koho/takehome/velocitylimit cli: go test
 
 Frontend
-From ~/frontend dorectory run cli: pm test
+From ~/frontend dorectory run cli: npm test
 
 
 #Web App
