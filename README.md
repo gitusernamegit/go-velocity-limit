@@ -27,7 +27,11 @@ Run cmd "go run" from ~/backend folder
 
 #Run tests
 
-Run "run-tests.bat" from ~/backend
+Backend
+From ~/backend dorectory run "run-tests.bat" 
+
+Frontend
+From ~/frontend dorectory run "npm test"
 
 
 #Web App
