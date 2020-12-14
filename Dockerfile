@@ -11,9 +11,15 @@ RUN apt-get update && \
 RUN mkdir -p /home/source
 WORKDIR /home/source
 RUN git clone https://github.com/gitusernamegit/go-velocity-limit.git
+WORKDIR /home/source/go-velocity-limit/
+RUN git pull
+
+# Remove previous web bunlde
 
 WORKDIR /home/source/go-velocity-limit/frontend
 RUN npm install react-scripts@4.0.1 typescript @types/node @types/react @types/react-dom @types/jest  react-redux @types/react-redux @types/redux redux-thunk @types/redux-thunk jest -D --silent
+
+RUN rm -rf build
 
 # Create production bundle
 RUN npm run build
