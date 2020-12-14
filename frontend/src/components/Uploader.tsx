@@ -41,7 +41,7 @@ const Uploader: FC<Props> = ({output = "", processRecords, processing = false, p
         <textarea className="text-area" value={output}></textarea>
     </div> : "";
 
-    const cleanButton = !processing && input ? <button onClick={() => handleClean()}>Clean</button> : ""
+    const clearButton = !processing && input ? <button onClick={() => handleClean()}>Clear</button> : ""
     const inputButton = !processing && input ? <button onClick={() => processRecords(input)}>{ error ? "Try again" : "Process"}</button> : ""
     const errorMsg = !processing && error ? <div className="error-message">Unable to processs due to following error: {error}</div> : ""
     const spinner = processing ? <div className="spinner"></div> : ""
@@ -49,6 +49,7 @@ const Uploader: FC<Props> = ({output = "", processRecords, processing = false, p
     return <div>
         <div>
             <div>
+        {errorMsg}
                 <div>
                     Input:
                 </div>
@@ -60,8 +61,7 @@ const Uploader: FC<Props> = ({output = "", processRecords, processing = false, p
         </div>
         
         {inputButton}
-        {cleanButton}
-        {errorMsg}
+        {clearButton}
         {outputEl}
     </div>
 }
