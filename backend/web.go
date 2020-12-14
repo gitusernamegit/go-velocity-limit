@@ -101,6 +101,6 @@ func process(w http.ResponseWriter, r *http.Request) {
 
 func runWebServer() {
 	http.HandleFunc("/process", process)
-	http.Handle("/", http.FileServer(http.Dir("./frontend/build")))
+	http.Handle("/", http.FileServer(http.Dir("./build")))
 	http.ListenAndServe(":8092", nil)
 }

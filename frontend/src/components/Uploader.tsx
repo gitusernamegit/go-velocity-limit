@@ -2,7 +2,8 @@ import {  ChangeEvent, FC, useState } from 'react'
 import { connect, useDispatch } from 'react-redux'
 import { AnyAction } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
-import { AppState, clearErrorActionCreator, uploadActionCreator } from '../store/Store'
+import { clearErrorActionCreator, uploadActionCreator } from '../store/Actions/ProcessActions'
+import { AppState } from '../store/Store'
 
 interface Props {
     output?: string,
@@ -67,10 +68,10 @@ const Uploader: FC<Props> = ({output = "", processRecords, processing = false, p
 
 const mapStateToProps = (store: AppState) => {
     return {
-        processing: store.uploadState.processing,
-        processed: store.uploadState.processed,
-        output: store.uploadState.output,
-        error: store.uploadState.error
+        processing: store.processState.processing,
+        processed: store.processState.processed,
+        output: store.processState.output,
+        error: store.processState.error
     }
 }
 

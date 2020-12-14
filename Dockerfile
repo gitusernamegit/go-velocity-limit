@@ -1,7 +1,6 @@
-FROM golang:1.15
 
-# Set the Current Working Directory inside the container
-WORKDIR $GOPATH/src/github.com/koho/takehome/velocitylimit
+# Install the node
+FROM node:15.4.0
 
 # Install git
 RUN apt-get update && \
@@ -9,15 +8,27 @@ RUN apt-get update && \
     apt-get install -y git
 
 # Clone source code
+RUN mkdir -p /home/source
+WORKDIR /home/source
 RUN git clone https://github.com/gitusernamegit/go-velocity-limit.git
 
-RUN mkdir -p $GOPATH/src/github.com/koho/takehome/velocitylimit
+WORKDIR /home/source/go-velocity-limit/frontend
+RUN npm install react-scripts@4.0.1 typescript @types/node @types/react @types/react-dom @types/jest  react-redux @types/react-redux @types/redux redux-thunk @types/redux-thunk jest -D --silent
 
-WORKDIR $GOPATH/src/github.com/koho/takehome/velocitylimit/go-velocity-limit/
-COPY . ../../
+# Create production bundle
+RUN npm run build
 
-WORKDIR $GOPATH/src/github.com/koho/takehome
-RUN rm -rf go-velocity-limit
+FROM golang:1.15
+
+COPY --from=0 /home/source/go-velocity-limit /home/source/go-velocity-limit
+
+WORKDIR /home/source/go-velocity-limit
+ADD backend $GOPATH/src/github.com/koho/takehome/velocitylimit
+
+RUN mkdir -p $GOPATH/src/github.com/koho/takehome/velocitylimit/build
+COPY /frontend/build $GOPATH/src/github.com/koho/takehome/velocitylimit/build
+
+WORKDIR $GOPATH/src/github.com/koho/takehome/velocitylimit
 
 # Download all the dependencies
 RUN go get -d -v ./...
@@ -27,20 +38,11 @@ RUN go install -v ./...
 
 RUN go build -o main .
 
-# Install the node
-FROM node:15.4.0
-
-# Install react packages
-WORKDIR $GOPATH/src/github.com/koho/takehome/velocitylimit/frontend
-RUN npm install typescript @types/node @types/react @types/react-dom @types/jest react-scripts@4.0.1 react-redux @types/react-redux @types/redux redux-thunk @types/redux-thunk --silent -D
-RUN npm run build
-
-COPY build ../backend/
-
 # This container exposes port 8092 to the outside world
 EXPOSE 8092
 
-FROM golang:1.15
+#CMD ["go", "run", "main.go"]
 # Run the executable
-WORKDIR $GOPATH/src/github.com/koho/takehome/velocitylimit/
-CMD ["go", "run", "main.go"]
+CMD ["velocitylimit"]
+
+
