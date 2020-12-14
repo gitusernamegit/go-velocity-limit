@@ -4,3 +4,7 @@ npm run build
 
 docker build --tag gohw:1.0 .
 docker run ghw:1.0
+
+os.Setenv("FOO", "1")
+
+process.env.NODE_ENV
