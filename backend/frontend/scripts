@@ -1,0 +1,6 @@
+npm install react-scripts@3.4.1 react-redux @types/react-redux @types/redux redux-thunk @types/redux-thunk --silent -g
+npm run build
+
+
+docker build --tag gohw:1.0 .
+docker run ghw:1.0
