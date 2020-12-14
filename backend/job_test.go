@@ -2,6 +2,7 @@ package main
 
 import (
 	"testing"
+	"time"
 )
 
 type mockLoadService struct {
@@ -34,13 +35,19 @@ func TestCustomerLoadProcessingOrder(t *testing.T) {
 func generateCustomerLoads(customerIDs []int64, loadsPerCustomer int) []CustomerLoad {
 
 	var customerLoads []CustomerLoad
+	today := time.Now().UTC()
 	loadID := int64(1)
+
 	for i := 0; i < loadsPerCustomer; i++ {
 		loadID++
 		for customerID := range customerIDs {
-			customerLoads = append(customerLoads, CustomerLoad{ID: loadID, CustomerID: int64(customerID), Amount: usdCurrencyMinimumAmount()})
+			customerLoads = append(customerLoads, *createCustomerLoad(loadID, int64(customerID), usdCurrencyMinimumAmount(), today))
 		}
 	}
 
 	return customerLoads
+}
+
+func createCustomerLoad(loadID int64, customerID int64, amount string, time time.Time) *CustomerLoad {
+	return &CustomerLoad{CustomerLoadResponse: CustomerLoadResponse{ID: loadID, CustomerID: customerID}, Amount: amount}
 }

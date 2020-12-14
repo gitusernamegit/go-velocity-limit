@@ -31,11 +31,15 @@ var (
 	instance *loadService
 )
 
+func newLoadService() *loadService {
+	return &loadService{repository: newDbRepository(), transactionMutex: &sync.Mutex{}}
+}
+
 //Service singleton
 func getLoadService() *loadService {
 
 	once.Do(func() {
-		instance = &loadService{repository: newDbRepository(), transactionMutex: &sync.Mutex{}}
+		instance = newLoadService()
 	})
 
 	return instance
