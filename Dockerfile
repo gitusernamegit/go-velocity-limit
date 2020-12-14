@@ -17,7 +17,7 @@ RUN git pull
 # Remove previous web bunlde
 
 WORKDIR /home/source/go-velocity-limit/frontend
-RUN npm install react-scripts@4.0.1 typescript @types/node @types/react @types/react-dom @types/jest  react-redux @types/react-redux @types/redux redux-thunk @types/redux-thunk jest -D --silent
+RUN npm install react-scripts@4.0.1 typescript @types/node @types/react @types/react-dom jest@26.6.0 @types/jest react-redux @types/react-redux @types/redux redux-thunk @types/redux-thunk -D --silent
 
 RUN rm -rf build
 
@@ -47,7 +47,6 @@ RUN go build -o main .
 # This container exposes port 8092 to the outside world
 EXPOSE 8092
 
-#CMD ["go", "run", "main.go"]
 # Run the executable
 CMD ["velocitylimit"]
 
