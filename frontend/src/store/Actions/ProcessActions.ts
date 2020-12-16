@@ -3,7 +3,7 @@ import { ThunkAction } from "redux-thunk";
 import { ProcessAction } from "../Constants/ActionTypes";
 import { processLoads } from "../Data";
 
-export type ProcessActions = ProcessRecords | ProcessingRecords | ProcessedRecords | ClearError
+export type ProcessActions = ProcessRecords | ProcessingRecords | ProcessedRecords | ClearInputAction
 
 
 export interface ProcessingRecords extends Action<ProcessAction.ProcessingRecords> {}
@@ -16,7 +16,7 @@ export interface ProcessRecords extends Action<ProcessAction.ProcessRecords> {
     input: string
 }
 
-export interface ClearError extends Action<ProcessAction.ClearError> {}
+export interface ClearInputAction extends Action<ProcessAction.ClearInput> {}
 
 export const uploadActionCreator: ActionCreator<ThunkAction<Promise<void>, string, null, ProcessActions>> = (input : string) => {
     return async (dispatch: Dispatch) => {
@@ -38,4 +38,4 @@ export const uploadActionCreator: ActionCreator<ThunkAction<Promise<void>, strin
     }
 }
 
-export const clearErrorActionCreator: ActionCreator<ClearError> = () => ({ type: ProcessAction.ClearError })
+export const clearInputActionCreator: ActionCreator<ClearInputAction> = () => ({ type: ProcessAction.ClearInput })

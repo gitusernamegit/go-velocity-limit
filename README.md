@@ -45,7 +45,7 @@ or
 From $GOPATH/src/github.com/koho/takehome/velocitylimit cli: go test
 
 Frontend
-From ~/frontend dorectory run cli: npm test
+From ~/frontend directory run cli: npm test
 
 
 #Web App

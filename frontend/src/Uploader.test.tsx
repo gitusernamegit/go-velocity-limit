@@ -77,11 +77,12 @@ it('When the Process button is clicked, it should hide Process and Clear buttons
 
   EnterInput();
 
-  const processButton = container.querySelectorAll('button')[1]
+  const processButton = container.querySelectorAll('button')[0]
   fireEvent.focus(processButton)
   fireEvent.click(processButton)
 
-  expect(container.firstChild.classList.contains('spinner')).not.toBeNull();
+  const spinner = container.querySelectorAll('.spinner')[0]
+  expect(spinner).not.toBeNull();
 
   const buttons = container.querySelectorAll('button')
   expect(buttons[0]).not.toBeNull();

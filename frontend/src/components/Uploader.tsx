@@ -2,7 +2,7 @@ import {  ChangeEvent, FC, useState } from 'react'
 import { connect, useDispatch } from 'react-redux'
 import { AnyAction } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
-import { clearErrorActionCreator, uploadActionCreator } from '../store/Actions/ProcessActions'
+import { clearInputActionCreator as clearInputActionCreator, uploadActionCreator } from '../store/Actions/ProcessActions'
 import { AppState } from '../store/Store'
 
 interface Props {
@@ -31,7 +31,7 @@ const Uploader: FC<Props> = ({output = "", processRecords, processing = false, p
 
     const handleClean = () => { 
          setInput("")
-         dispatch(clearErrorActionCreator())
+         dispatch(clearInputActionCreator())
     }
 
     const outputEl = !error && processed ? <div>

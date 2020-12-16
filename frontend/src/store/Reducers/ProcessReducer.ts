@@ -35,7 +35,7 @@ export const processReducer : Reducer<ProcessState, ProcessActions> = (state = i
                 processed: true,
                 error: action.error,
             }
-        case ProcessAction.ClearError:
+        case ProcessAction.ClearInput:
             return {
                 ...state,
                 error: "",

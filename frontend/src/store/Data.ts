@@ -6,8 +6,7 @@ interface LoadResponse {
 }
 
 export const processLoads = async (input: string) : Promise<LoadResponse> => {
-    console.log("fetching....")
-
+    
     let loadResponse: LoadResponse = { output: "", error: "" }
     let responseStatus: number
 
