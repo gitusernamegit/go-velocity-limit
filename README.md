@@ -26,9 +26,9 @@ Copy "build" directory into ~/backend folder
 
 Create $GOPATH/src/github.com/koho/takehome/velocitylimit
 
-Copy backend folder content into $GOPATH/src/github.com/koho/takehome/
+Copy backend folder content into $GOPATH/src/github.com/koho/takehome/velocitylimit
 
-Make $GOPATH/src/github.com/koho/takehome/ your current folder
+Make $GOPATH/src/github.com/koho/takehome/velocitylimit your current folder
 
 
 Run cli: go build
