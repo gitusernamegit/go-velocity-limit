@@ -2,7 +2,8 @@ import {  ChangeEvent, FC, useState } from 'react'
 import { connect, useDispatch } from 'react-redux'
 import { AnyAction } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
-import { clearInputActionCreator as clearInputActionCreator, uploadActionCreator } from '../store/Actions/ProcessActions'
+import { createClearErrorAction, createUploadActionCreator } from '../store/Actions/ProcessActions'
+import { LoadResponse, processRecordsApiCall } from '../store/Data'
 import { AppState } from '../store/Store'
 
 interface Props {
@@ -10,7 +11,8 @@ interface Props {
     processing?: boolean,
     processed?: boolean,
     error?: string,
-    processRecords: (input: string) => void
+    processRecords?: (input: string) => void,
+    processRecordsApiCall?: (input: string) => Promise<LoadResponse>
 }
 
 const Uploader: FC<Props> = ({output = "", processRecords, processing = false, processed = false, error = ""}) => {
@@ -21,7 +23,7 @@ const Uploader: FC<Props> = ({output = "", processRecords, processing = false, p
     const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         
         if(error){
-            handleClean()
+            handleClear()
         }
 
         if(!processing){
@@ -29,20 +31,20 @@ const Uploader: FC<Props> = ({output = "", processRecords, processing = false, p
         }
     }
 
-    const handleClean = () => { 
+    const handleClear = () => { 
          setInput("")
-         dispatch(clearInputActionCreator())
+         dispatch(createClearErrorAction())
     }
 
     const outputEl = !error && processed ? <div>
         <div>
             Output:
         </div>
-        <textarea className="text-area" value={output}></textarea>
+        <textarea readOnly className="text-area" value={output}></textarea>
     </div> : "";
 
-    const clearButton = !processing && input ? <button onClick={() => handleClean()}>Clear</button> : ""
-    const inputButton = !processing && input ? <button onClick={() => processRecords(input)}>{ error ? "Try again" : "Process"}</button> : ""
+    const clearButton = !processing && input ? <button onClick={() => handleClear()}>Clear</button> : ""
+    const inputButton = !processing && input && processRecords != null ? <button onClick={() => processRecords(input)}>{ error ? "Try again" : "Process"}</button> : ""
     const errorMsg = !processing && error ? <div className="error-message">Unable to processs due to following error: {error}</div> : ""
     const spinner = processing ? <div className="spinner"></div> : ""
 
@@ -76,6 +78,9 @@ const mapStateToProps = (store: AppState) => {
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) =>{
+
+    const uploadActionCreator = createUploadActionCreator();
+
     return {
         processRecords: (input: string) => dispatch(uploadActionCreator(input))
     }

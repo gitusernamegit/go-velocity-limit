@@ -1,8 +1,9 @@
 
 
 export enum ProcessAction {
+    ProcessApiCall = "ProcessApiCall",
     ProcessingRecords = "ProcessingRecords",
     ProcessedRecords = "ProcessedRecords",
     ProcessRecords = "ProcessRecords",
-    ClearInput = "ClearInput",
+    ClearError = "ClearError",
 }
